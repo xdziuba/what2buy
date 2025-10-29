@@ -6,7 +6,7 @@ from langchain.agents import create_agent
 from langchain_mcp_adapters.tools import load_mcp_tools
 
 from .config import config
-from app.models import search_result
+from app.models.search_result import SearchResult
 
 class Agent:
     def __init__(self) -> None:
@@ -26,8 +26,8 @@ class Agent:
         async with stdio_client(self.server_parameters) as (r, w):
             async with ClientSession(r, w) as session:
                 await session.initialize()
-                agent = create_agent(self.model, await load_mcp_tools(session=session), response_format=search_result)
 
+                agent = create_agent(self.model, await load_mcp_tools(session=session), response_format=SearchResult)
                 full_query = f"{user_query}\nMarketplaces: {','.join(config.MARKETPLACES)}"
 
                 response = await agent.ainvoke(
@@ -38,4 +38,4 @@ class Agent:
                         ]
                     }
                 )
-                return response['structured_output'].model_dump()
+                return response['structured_response']
