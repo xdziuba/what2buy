@@ -22,13 +22,13 @@ class Agent:
             } # type: ignore
         )
 
-    async def run_search(self, user_query: str):
+    async def run_search(self, user_query: str, selected_marketplaces: list[str]):
         async with stdio_client(self.server_parameters) as (r, w):
             async with ClientSession(r, w) as session:
                 await session.initialize()
 
                 agent = create_agent(self.model, await load_mcp_tools(session=session), response_format=SearchResult)
-                full_query = f"{user_query}\nMarketplaces: {','.join(config.MARKETPLACES)}"
+                full_query = f"{user_query}\nMarketplaces: {','.join(selected_marketplaces)}"
 
                 response = await agent.ainvoke(
                     {
