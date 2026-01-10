@@ -27,8 +27,12 @@
 import { ref } from 'vue'
 import { useQuasar } from 'quasar'
 import axios from 'axios'
+import { useSearchStore } from 'src/stores/search'
+import { useRouter } from 'vue-router'
 
 const $q = useQuasar()
+const searchStore = useSearchStore()
+const router = useRouter()
 
 const marketplace = ref(['Amazon'])
 const text = ref('')
@@ -47,14 +51,17 @@ async function searchProduct() {
 
   $q.loading.show({ message: 'Searching for best products, this might take a moment...' })
 
-  try{
+  try {
     const response = await axios.get('http://127.0.0.1:8000/search', {
       params: {
         query: text.value,
         marketplaces: marketplace.value
       }
     })
-    console.log(response.data.results)
+    console.log(response.data.results) // Debugging line
+    searchStore.setResult(response.data) 
+    router.push('/result')
+
   } catch (error) {
     console.error('Error fetching search results - please try again later: ', error)
   } finally {

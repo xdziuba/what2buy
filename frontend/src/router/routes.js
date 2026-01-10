@@ -7,6 +7,14 @@ const routes = [
     ]
   },
 
+  {
+    path: '/result',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/ResultPage.vue') }
+    ]
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {
