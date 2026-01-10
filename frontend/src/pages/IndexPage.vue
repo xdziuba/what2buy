@@ -25,7 +25,10 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useQuasar } from 'quasar'
 import axios from 'axios'
+
+const $q = useQuasar()
 
 const marketplace = ref(['Amazon'])
 const text = ref('')
@@ -41,13 +44,22 @@ const options = [
 ]
 
 async function searchProduct() {
-  const response = await axios.get('http://127.0.0.1:8000/search', {
-    params: {
-      query: text.value,
-      marketplaces: marketplace.value
-    }
-  })
-  console.log(response)
+
+  $q.loading.show({ message: 'Searching for best products, this might take a moment...' })
+
+  try{
+    const response = await axios.get('http://127.0.0.1:8000/search', {
+      params: {
+        query: text.value,
+        marketplaces: marketplace.value
+      }
+    })
+    console.log(response.data.results)
+  } catch (error) {
+    console.error('Error fetching search results - please try again later: ', error)
+  } finally {
+    $q.loading.hide()
+  }
 }
 </script>
 
