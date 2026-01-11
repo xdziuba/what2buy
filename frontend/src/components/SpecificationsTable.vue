@@ -9,18 +9,29 @@
   />
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { computed } from 'vue'
-import type { QTableColumn } from 'quasar'
-import type { Specification } from 'src/types/SearchResult'
 
-const props = defineProps<{
-  specs: Specification[]
-}>()
+const props = defineProps({
+  specs: {
+    type: Array,
+    required: true
+  }
+})
 
-const columns: QTableColumn[] = [
-  { name: 'name', label: 'Parametr', field: 'name', align: 'left' },
-  { name: 'value', label: 'Wartość', field: 'value', align: 'left' }
+const columns = [
+  {
+    name: 'name',
+    label: 'Parametr',
+    field: 'name',
+    align: 'left'
+  },
+  {
+    name: 'value',
+    label: 'Wartość',
+    field: 'value',
+    align: 'left'
+  }
 ]
 
 const rows = computed(() => props.specs)

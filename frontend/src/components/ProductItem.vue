@@ -9,7 +9,9 @@
         <div><strong>Cena:</strong> {{ product.price }} zł</div>
         <div><strong>Ocena:</strong> {{ product.rating }}</div>
         <div>
-          <a :href="product.url" target="_blank">Przejdź do oferty</a>
+          <a :href="product.url" target="_blank" rel="noopener noreferrer">
+            Przejdź do oferty
+          </a>
         </div>
       </q-card-section>
 
@@ -22,11 +24,13 @@
   </q-expansion-item>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import SpecificationsTable from './SpecificationsTable.vue'
-import type { ProductInfo } from 'src/types/SearchResult'
 
-defineProps<{
-  product: ProductInfo
-}>()
+defineProps({
+  product: {
+    type: Object,
+    required: true
+  }
+})
 </script>

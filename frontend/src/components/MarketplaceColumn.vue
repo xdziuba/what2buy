@@ -12,11 +12,13 @@
   </q-card>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import ComparisonTable from './ComparisonTable.vue'
-import type { MarketplaceProductMatch } from 'src/types/SearchResult'
 
-defineProps<{
-  marketplace: MarketplaceProductMatch
-}>()
+defineProps({
+  marketplace: {
+    type: Object,
+    required: true
+  }
+})
 </script>

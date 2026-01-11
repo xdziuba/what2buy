@@ -59,7 +59,7 @@ async function searchProduct() {
       }
     })
     console.log(response.data.results) // Debugging line
-    searchStore.setResult(response.data) 
+    searchStore.setResult(response.data.results[0]) 
     router.push('/result')
 
   } catch (error) {

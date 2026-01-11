@@ -1,12 +1,12 @@
 <template>
-  <q-page class="q-pa-md">
+<q-page class="q-pa-md">
     <div v-if="!result">Brak wyników</div>
 
-    <div v-else class="row q-col-gutter-md">
+    <div v-else class="row justify-center q-col-gutter-md">
       <div
         v-for="marketplace in result.marketplaces"
         :key="marketplace.marketplace"
-        class="col"
+        class="col-12 col-md-4"
       >
         <MarketplaceColumn :marketplace="marketplace" />
       </div>
