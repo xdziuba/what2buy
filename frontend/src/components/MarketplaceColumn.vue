@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered class="q-mb-md">
+  <q-card flat dark bordered class="q-mb-md">
     <q-card-section class="text-h6 text-center">
       {{ marketplace.marketplace }}
     </q-card-section>
@@ -22,3 +22,9 @@ defineProps({
   }
 })
 </script>
+
+<style scoped>
+  .q-card {
+    opacity: 0.91;
+  }
+</style>

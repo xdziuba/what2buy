@@ -2,6 +2,7 @@
   <q-table
     dense
     flat
+    dark
     bordered
     :rows="rows"
     :columns="columns"
@@ -30,6 +31,17 @@
           Specification
         </span>
       </q-th>
+    </template>
+
+    <template #body-cell="props">
+      <q-td
+        :props="props"
+        :class="props.row._different && props.col.name !== 'spec'
+          ? 'diff-cell'
+          : ''"
+      >
+        {{ props.value }}
+      </q-td>
     </template>
   </q-table>
 </template>
@@ -77,12 +89,20 @@ const rows = computed(() => {
   return specs.map(spec => {
     const row = { spec: spec.name }
 
+    const values = []
+
     props.products.forEach(product => {
       const found = product.specifications.find(
         s => s.name === spec.name
       )
-      row[product.name] = found ? found.value : '—'
+      const value = found ? found.value : '—'
+      row[product.name] = value
+      values.push(value)
     })
+
+    // sprawdzamy, czy są różnice (więcej niż jedna unikalna wartość)
+    const unique = new Set(values)
+    row._different = unique.size > 1
 
     return row
   })
@@ -113,5 +133,10 @@ function productUrl(productName) {
 
 .product-link:hover {
   text-decoration: underline;
+}
+
+.diff-cell {
+  background: rgba(255, 193, 7, 0.25); /* delikatny żółty */
+  font-weight: 600;
 }
 </style>
