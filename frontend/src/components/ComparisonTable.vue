@@ -100,7 +100,6 @@ const rows = computed(() => {
       values.push(value)
     })
 
-    // sprawdzamy, czy są różnice (więcej niż jedna unikalna wartość)
     const unique = new Set(values)
     row._different = unique.size > 1
 
@@ -136,7 +135,7 @@ function productUrl(productName) {
 }
 
 .diff-cell {
-  background: rgba(255, 193, 7, 0.25); /* delikatny żółty */
+  background: rgba(255, 193, 7, 0.25);
   font-weight: 600;
 }
 </style>

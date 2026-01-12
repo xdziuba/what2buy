@@ -52,7 +52,7 @@ async function searchProduct() {
   $q.loading.show({ message: 'Searching for best products, this might take a moment...' })
 
   try {
-    const response = await axios.get('http://127.0.0.1:8000/search', {
+    const response = await axios.get('http://localhost:8000/search/', {
       params: {
         query: text.value,
         marketplaces: marketplace.value

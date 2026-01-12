@@ -6,10 +6,7 @@ from app.routes import root, search
 app = FastAPI(title="What2Buy", version="0.1", description="API for an AI-powered product research assistant.")
 
 # Configure CORS
-origins = [
-    "http://localhost:9000",
-    "http://127.0.0.1:9000",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
